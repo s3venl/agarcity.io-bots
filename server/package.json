@@ -1,0 +1,25 @@
+{
+  "name": "citybots",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "boxen": "^8.0.1",
+    "chalk": "^5.6.2",
+    "esbuild": "^0.27.7",
+    "get-tsconfig": "^4.14.0",
+    "https-proxy-agent": "^9.0.0",
+    "node-fetch": "^3.3.2",
+    "p-queue": "^9.3.0",
+    "puppeteer-real-browser": "^1.4.4",
+    "resolve-pkg-maps": "^1.0.0",
+    "ws": "^8.20.0"
+  }
+}
