@@ -4,13 +4,28 @@ A simple AgarCity.io bot system built with Puppeteer, WebSocket, and Cloudflare'
 
 ## Features
 
+### Core Bot Server
+
 - Proxy support
 - Cloudflare Turnstile token solver
 - WebSocket bot connection
-- Automatic asset loading
-- Queue system for controlled concurrency
+- Controlled Concurrency Captcha Solver
+
+### Client Extension
+
 - Extra Zoom
+- Bot Visual Indicator
 - Show All Player Mass
+
+---
+
+## Controls
+
+- **`E`** : Split
+- **`R`** : Feed
+- **`S`** : Set Emoji
+- **`C`** : Send Chat Spam
+- **`F`** : Collect Pellet _(WIP / Not Implemented Yet)_
 
 ---
 
@@ -53,7 +68,7 @@ server/
 
 - Node.js 18+
 - Google Chrome / Chromium
-- Stable proxies
+- Stable proxies (HTTP only)
 - Windows/Linux
 
 ---
@@ -138,6 +153,7 @@ server/captcha/solveTurnstile.js
 ```
 
 Important:
+
 - Cloudflare protection may change anytime
 - Some proxies may fail
 - `cf_clearance` cookies are not guaranteed
