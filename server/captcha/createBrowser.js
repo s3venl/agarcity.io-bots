@@ -7,10 +7,19 @@ async function createBrowser() {
         // console.log('Creating browser...');
         global.browser = null;
         const { browser } = await connect({
-            headless: false,
+            args: [
+                "--no-sandbox",
+                // '--disable-setuid-sandbox',
+                // '--disable-dev-shm-usage',
+                // '--disable-accelerated-2d-canvas',
+                // '--disable-gpu',
+                // '--disable-blink-features=AutomationControlled',
+            ],
+            headless: true,
             turnstile: true,
             connectOption: { defaultViewport: null },
             disableXvfb: false,
+            ignoreAllFlags: true,
         });
         global.browser = browser;
         browser.on('disconnected', async () => {
