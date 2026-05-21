@@ -227,7 +227,7 @@ Use responsibly.
 
 ## README Notice
 
-This README was paraphrased, refined, and improved with assistance from ChatGPT.
+This README was paraphrased, refined, and improved with assistance from AI.
 
 ---
 
