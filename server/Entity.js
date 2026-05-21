@@ -2,9 +2,14 @@ export default class {
     id;
     x;
     y;
-    name;
     size;
+    mass;
+    skin;
+    badge;
+    clan;
+    name;
     flags;
+    partyCode;
     isFood;
     cellType;
     virusType;
@@ -15,13 +20,20 @@ export default class {
     isFriend;
     isPlayer;
     isMe;
+    isBot;
+    isMinion;
     constructor() {
         this.id = 0;
         this.x = 0;
         this.y = 0;
-        this.name = null;
+        this.badge = 0;
+        this.name = "";
         this.size = 0;
+        this.mass = 0;
+        this.skin = 0;
+        this.clan = "";
         this.flags = 0;
+        this.partyCode = "";
         this.cellType = 0;
         this.virusType = 0;
         this.isFood = false;
@@ -32,5 +44,7 @@ export default class {
         this.isFriend = false;
         this.isPlayer = false;
         this.isMe = false;
+        this.isBot = false;
+        this.isMinion = false;
     }
 }
