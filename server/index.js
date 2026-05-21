@@ -4,12 +4,12 @@ import { logger } from "./utils/Logger.js";
 import Reader from "./utils/Reader.js";
 import Writer from "./utils/Writer.js";
 // Create Browser instance to bypass cloudflare on server start
-import "../captcha/createBrowser.js";
+import "./captcha/createBrowser.js";
 const wss = new WebSocketServer({ port: 80 });
 const config = {
     bots: [],
     maxBots: 30,
-    botName: ' ',
+    botName: '__Bot__',
     serverUrl: "",
     mouseX: 0,
     mouseY: 0,
@@ -115,7 +115,7 @@ const startBots = () => {
                     startedBots: config.startedBots,
                     lastEmojiTime: config.lastEmojiTime,
                 }));
-            }, 200 * i);
+            }, 300 * i);
         }
         botInt = setInterval(() => {
             aliveBots = config.bots.filter(bot => bot.ws?.readyState === WebSocket.OPEN).length;
