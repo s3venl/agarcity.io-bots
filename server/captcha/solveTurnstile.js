@@ -74,6 +74,7 @@ async function solveTurnstileMin() {
                 }
             });
             const userAgent = await page.evaluate(() => navigator.userAgent);
+            await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"); // avoid detection, if headless true
             await page.goto(url, {
                 waitUntil: "domcontentloaded",
                 timeout: 60000,
@@ -90,12 +91,15 @@ async function solveTurnstileMin() {
             }
             await new Promise(resolve => setTimeout(resolve, 1000));
             const cookies = await page.cookies(url);
-            const cfClearanceCookie = cookies.find((cookie) => cookie.name === "cf_clearance");
+            const cf_clearance = cookies.find((cookie) => cookie.name === "cf_clearance");
+            if (!cf_clearance) {
+                throw new Error("Failed to get cf_clearance cookie. maybe proxy is blocked. change proxy or try again later.");
+            }
             return {
                 token,
-                cf_clearance: cfClearanceCookie?.value ?? null,
-                userAgent,
                 cookies,
+                userAgent,
+                cf_clearance: cf_clearance?.value ?? null,
             };
         }
         catch (error) {
