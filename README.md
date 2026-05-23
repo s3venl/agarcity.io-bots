@@ -25,7 +25,7 @@ A simple AgarCity.io bot system built with Puppeteer, WebSocket, and Cloudflare'
 - **`R`** : Feed
 - **`S`** : Set Emoji
 - **`C`** : Send Chat Spam
-- **`F`** : Collect Pellet _(WIP / Not Implemented Yet)_
+- **`F`** : Collect Pellet
 
 ---
 
@@ -40,21 +40,20 @@ extension/
 └── manifest.json
 
 server/
-├── captcha/
+├── core/
+│   ├── Entity.js
+│   ├── Minion.js
+│   └── Packets.js
+│
+├── turnstile/
 │   ├── createBrowser.js
 │   └── solveTurnstile.js
 │
-├── data/
-│   └── fakePage.html
-│
 ├── utils/
 │   ├── Helper.js
-│   ├── Logger.js
-│   ├── Reader.js
-│   └── Writer.js
+│   └── Logger.js
 │
-├── AgarBot.js
-├── Entity.js
+├── Client.js
 ├── index.js
 ├── install.bat
 ├── package.json
