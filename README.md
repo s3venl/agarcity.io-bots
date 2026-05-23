@@ -47,7 +47,8 @@ server/
 │
 ├── turnstile/
 │   ├── createBrowser.js
-│   └── solveTurnstile.js
+│   ├── solveTurnstile.js
+│   └── turnstilePage.html
 │
 ├── utils/
 │   ├── Helper.js
