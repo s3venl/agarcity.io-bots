@@ -1,19 +1,22 @@
 import chalk from 'chalk';
 import boxen from 'boxen';
 import helper from './Helper.js';
+import createBrowser from "../turnstile/createBrowser.js";
 let printedBoxen = false;
-export const logger = {
-    initialize: () => {
+const logger = {
+    initialize: async () => {
         if (printedBoxen)
             return;
+        await createBrowser();
         helper.setupProxies();
-        const info = boxen(`${chalk.greenBright.bold("Version          :")} 1.0\n` +
+        const info = boxen(`${chalk.greenBright.bold("Version          :")} 1.2\n` +
+            `${chalk.greenBright.bold("Browser          :")} ${global.browser ? 'Ready' : 'Not Ready'}\n` +
             `${chalk.greenBright.bold("Proxies          :")} Loaded ${helper.proxies.length} proxies\n` +
             `${chalk.greenBright.bold("Developed by     :")} S3venL`, {
             width: 65,
             padding: .50,
-            title: "CityBots",
-            borderStyle: "round",
+            title: "AGARCITY.IO BOTS",
+            borderStyle: "bold",
             titleAlignment: 'center',
             borderColor: "greenBright",
         });
@@ -38,3 +41,4 @@ export const logger = {
         }
     }
 };
+export default logger;

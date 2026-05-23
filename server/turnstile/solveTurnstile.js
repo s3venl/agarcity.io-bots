@@ -1,11 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import PQueue from "p-queue";
 import helper from "../utils/Helper.js";
+import { fileURLToPath } from "node:url";
+import logger from "../utils/Logger.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const html = fs.readFileSync(path.join(__dirname, "../data/fakePage.html"), "utf8");
+const html = fs.readFileSync(path.join(__dirname, "./turnstilePage.html"), "utf8");
 const queue = new PQueue({ concurrency: 3 });
 function safeErrorMessage(error) {
     return error instanceof Error ? error.message : String(error);
@@ -22,7 +23,8 @@ async function safeClose(context) {
             msg.includes("Target.disposeBrowserContext")) {
             return;
         }
-        console.warn("Failed to close context:", msg);
+        if (!global.browserFinished)
+            logger.warn("Failed to close context:", msg);
     }
 }
 async function solveTurnstileMin() {
@@ -70,7 +72,8 @@ async function solveTurnstileMin() {
                     }
                 }
                 catch {
-                    // ignore errors from requests after timeout
+                    if (!global.browserFinished)
+                        logger.warn("Error occurred while handling request");
                 }
             });
             const userAgent = await page.evaluate(() => navigator.userAgent);
@@ -103,7 +106,8 @@ async function solveTurnstileMin() {
             };
         }
         catch (error) {
-            console.error("Error solving turnstile:", safeErrorMessage(error));
+            if (!global.browserFinished)
+                logger.warn("Error solving turnstile:", safeErrorMessage(error));
             return null;
         }
         finally {

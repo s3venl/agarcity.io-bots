@@ -1,5 +1,6 @@
 export default class {
     id;
+    ownerId;
     x;
     y;
     size;
@@ -13,17 +14,23 @@ export default class {
     isFood;
     cellType;
     virusType;
-    extendedFlags;
-    extraData;
     isVirus;
     isPellet;
     isFriend;
     isPlayer;
-    isMe;
+    isMine;
     isBot;
     isMinion;
+    blockedFromAll;
+    userRole;
+    emoji;
+    freeze;
+    minionOwnerId;
+    dead;
+    eatenBy;
     constructor() {
         this.id = 0;
+        this.ownerId = 0;
         this.x = 0;
         this.y = 0;
         this.badge = 0;
@@ -35,16 +42,28 @@ export default class {
         this.flags = 0;
         this.partyCode = "";
         this.cellType = 0;
+        this.isVirus = false;
         this.virusType = 0;
         this.isFood = false;
-        this.extendedFlags = 0;
-        this.extraData = '';
-        this.isVirus = false;
         this.isPellet = false;
         this.isFriend = false;
         this.isPlayer = false;
-        this.isMe = false;
+        this.isMine = false;
         this.isBot = false;
         this.isMinion = false;
+        this.blockedFromAll = false;
+        this.userRole = null;
+        this.emoji = null;
+        this.freeze = null;
+        this.minionOwnerId = null;
+        this.dead = false;
+        this.eatenBy = 0;
+    }
+    destroy(bot) {
+        delete bot.myCellIds[this.id];
+        delete bot.nodes[this.id];
+        const index = bot.ownCells.indexOf(this);
+        if (index !== -1)
+            bot.ownCells.splice(index, 1);
     }
 }

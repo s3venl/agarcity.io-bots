@@ -1,12 +1,10 @@
 import fs from "fs";
 import path from "path";
 import fetch from 'node-fetch';
-import PQueue from 'p-queue';
 import { fileURLToPath } from 'url';
-import { logger } from "./Logger.js";
+import logger from "./Logger.js";
 import { HttpsProxyAgent } from "https-proxy-agent";
-import solveTurnstileMin from "../captcha/solveTurnstile.js";
-const queue = new PQueue({ concurrency: 5 });
+import solveTurnstileMin from "../turnstile/solveTurnstile.js";
 const helper = {
     proxies: [],
     setupProxies() {
@@ -27,12 +25,14 @@ const helper = {
     async getCaptchaTicket(serverCode) {
         const response = await solveTurnstileMin().then(res => { return { result: res, code: 200 }; }).catch(logger.warn);
         if (!response) {
-            logger.warn('Failed to solve turnstile');
+            if (!global.browserFinished)
+                logger.warn('Failed to solve turnstile');
             return null;
         }
         const result = response.result;
         if (!result || !result.token || !result.cf_clearance) {
-            logger.warn('Invalid turnstile result');
+            if (!global.browserFinished)
+                logger.warn('Invalid turnstile result');
             return null;
         }
         const payload = {
@@ -56,13 +56,16 @@ const helper = {
                 agent: proxyAgent,
             });
             if (!response.ok) {
+                if (!global.browserFinished)
+                    logger.warn(`Failed to get captcha ticket: ${response.status} ${response.statusText}`);
                 return null;
             }
             const data = await response.json();
             return data.ticket;
         }
         catch (error) {
-            logger.warn(`Error getting captcha ticket: ${error.message}`);
+            if (!global.browserFinished)
+                logger.warn(`Error getting captcha ticket: ${error.message}`);
             return null;
         }
     }

@@ -20,6 +20,7 @@
     "p-queue": "^9.3.0",
     "puppeteer-real-browser": "^1.4.4",
     "resolve-pkg-maps": "^1.0.0",
+    "smart-buffer": "^4.2.0",
     "ws": "^8.20.0"
   }
 }
